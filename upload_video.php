@@ -4,6 +4,9 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style media="screen">
+
+    </style>
   </head>
   <body>
     <?php
@@ -40,7 +43,7 @@
         print_r($output);
         // // 변수 안받아 오고 서버에서 파일
         // $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\bin\\ffmpeg.exe -i \"videos\\[밀정]자드시오.mp4\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 10 -y \"videos\\%3d.png\" 2>&1";
-        $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\\bin\\ffmpeg.exe -i \"videos\\".$_FILES['userfile']['name']."\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y \"videos\\".substr($_FILES['userfile']['name'],0,-4)."%3d.png\" 2>&1";
+        $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\\bin\\ffmpeg.exe -i \"videos\\".$_FILES['userfile']['name']."\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes $frames_num -y \"videos\\".substr($_FILES['userfile']['name'],0,-4)."%3d.png\" 2>&1";
 
         exec($command_string, $output, $status);
         if($status) {
@@ -55,10 +58,14 @@
         // echo  $command_string;
         // echo $_FILES['userfile']['name'];
     ?>
-    <video width="400" heigh="200" src="videos/<?=$_FILES['userfile']['name']?>" controls>
-      <br>
-      <img width="200" height="100" src="videos/점프_아이들001.png">
-    </video>
+    <video width="400" heigh="200" src="videos/<?=$_FILES['userfile']['name']?>" controls></video>
+    <br>
+      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>001.png">
+      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>002.png">
+      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>003.png">
+      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>004.png">
+      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>005.png">
+      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>006.png">
 
 
 

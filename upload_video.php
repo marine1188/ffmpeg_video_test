@@ -7,10 +7,8 @@
   </head>
   <body>
     <?php
-    // var_dump($_FILES);
-    //   exit;
 
-
+      $frames_num = $_POST["frame_input"];
 
       //임시 디렉토리에 위치 하는 파일을 파일 디렉토리 지정 하기
       $uploaddir = 'C:\Bitnami\wampstack-7.3.15-0\apache2\htdocs\web_sk\videos\\';
@@ -33,16 +31,6 @@
        Print_r($_FILES['userfile']['name']);
        $_FILES['userfile']['name'];
 
-        // print_r($uploadfile);
-
-
-        //$uploadfile cmd 에 이경로 들어가느면 됨
-        //
-        // echo $uploadfile;
-        //
-        // C:\Bitnami\wampstack-7.3.15-0\apache2\htdocs\web_sk\videos\[밀정]자드시오.mp4
-        //
-
 
         $output;
         $status;
@@ -52,7 +40,8 @@
         print_r($output);
         // // 변수 안받아 오고 서버에서 파일
         // $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\bin\\ffmpeg.exe -i \"videos\\[밀정]자드시오.mp4\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 10 -y \"videos\\%3d.png\" 2>&1";
-        $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\\bin\\ffmpeg.exe -i \"videos\\".$_FILES['userfile']['name']."\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 10 -y \"videos\\%3d.png\" 2>&1";
+        $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\\bin\\ffmpeg.exe -i \"videos\\".$_FILES['userfile']['name']."\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y \"videos\\".substr($_FILES['userfile']['name'],0,-4)."%3d.png\" 2>&1";
+
         exec($command_string, $output, $status);
         if($status) {
           echo $status;
@@ -63,14 +52,14 @@
           print_r($output);
           echo "성공";
         }
-        echo  $command_string;
-
+        // echo  $command_string;
+        // echo $_FILES['userfile']['name'];
     ?>
     <video width="400" heigh="200" src="videos/<?=$_FILES['userfile']['name']?>" controls>
+      <br>
+      <img width="200" height="100" src="videos/점프_아이들001.png">
     </video>
-    <form class="" action="cut_frame.php" method="post">
-      <button type="submit" name="cut_fram" id="cut_fram" >동영상 10프래임 보기</button>
-    </form>
+
 
 
 

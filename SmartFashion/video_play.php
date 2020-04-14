@@ -40,23 +40,20 @@
 
        Print_r($_FILES['userfile']['name']);
        $_FILES['userfile']['name'];
-        $output;
-        $status;
-        $_FILES['userfile']['name'];
-        echo exec("echo %cd%", $output, $status);
 
-        print_r($output);
         // // // 변수 안받아 오고 서버에서 파일
-        // // $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\bin\\ffmpeg.exe -i \"videos\\[밀정]자드시오.mp4\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 10 -y \"videos\\%3d.png\" 2>&1";
+        // $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\bin\\ffmpeg.exe -i \"videos\\[밀정]자드시오.mp4\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 10 -y \"videos\\%3d.png\" 2>&1";
         // $command_string =  "C:\\ffmpeg-4.2.2-win64-static\\ffmpeg-4.2.2-win64-static\\bin\\ffmpeg.exe -i \"videos\\".$_FILES['userfile']['name']."\" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes $frames_num -y \"videos\\".substr($_FILES['userfile']['name'],0,-4)."%3d.png\" 2>&1";
 
-          // 리눅스에서 ffmpeg 돌릴때
-        // ffmpeg -i /var/www/html/web_csk/SmartFashion/video/video_t.mp4 -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y /var/www/html/web_csk/SmartFashion/video_frm/%3d.png
-
-        //$output = shell_exec('ls -al');
-        // echo "<pre>".$output."</pre>";
                 //리눅스 명령어
-        $command_string = 'ffmpeg -i /var/www/html/web_csk/SmartFashion/video/video_t.mp4 -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y /var/www/html/web_csk/SmartFashion/video_frm/%3d.png';
+            //경로    // /usr/bin/ffmpeg
+      //  $command_string = "ffmpeg -i /var/www/html/web_csk/SmartFashion/video/video_t.mp4 -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y /var/www/html/web_csk/SmartFashion/video_frm/%3d.png 2>&1";
+      $command_string = "ffmpeg -i /var/www/html/web_csk/SmartFashion/video/".$_FILES['userfile']['name']." -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes $frames_num -y /var/www/html/web_csk/SmartFashion/video_frm/".substr($_FILES['userfile']['name'],0,-4)."%3d.png 2>&1";
+
+        //$command_string = 'ffmpeg -i /var/www/html/web_csk/SmartFashion/video/video_t.mp4 -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y /var/www/html/web_csk/SmartFashion/video_frm/%3d.png';
+        //$command_string = "usr//bin/ffmpeg -i /"var/www/html/web_csk/SmartFashion/video/video_t.mp4/" -an -ss 00:00:00 -qscale 1 -r 0.2 -vframes 2 -y /"var/www/html/web_csk/SmartFashion/video_frm/%3d.png\"2>$1";
+
+         //$command_string = "ls"
         exec($command_string, $output, $status);
         if($status) {
           echo $status;
@@ -68,17 +65,15 @@
           echo "성공";
         }
         echo  $output;
-        echo $_FILES['userfile']['name'];
 
     ?>
-
     <video width="400" heigh="200" src="/web_csk/SmartFashion/video/<?= $_FILES['userfile']['name']?>" controls></video>
     <br>
-      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>001.png">
-      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>002.png">
-      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>003.png">
-      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>004.png">
-      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>005.png">
-      <img width="200" heigh="100" src="videos/<?=substr($_FILES['userfile']['name'],0,-4)?>006.png">
+      <img width="200" heigh="100" src="/web_csk/SmartFashion/video_frm/<?=substr($_FILES['userfile']['name'],0,-4)?>001.png">
+      <img width="200" heigh="100" src="/web_csk/SmartFashion/video_frm/<?=substr($_FILES['userfile']['name'],0,-4)?>002.png">
+      <img width="200" heigh="100" src="/web_csk/SmartFashion/video_frm/<?=substr($_FILES['userfile']['name'],0,-4)?>003.png">
+      <img width="200" heigh="100" src="/web_csk/SmartFashion/video_frm/<?=substr($_FILES['userfile']['name'],0,-4)?>004.png">
+      <img width="200" heigh="100" src="/web_csk/SmartFashion/video_frm/<?=substr($_FILES['userfile']['name'],0,-4)?>005.png">
+      <img width="200" heigh="100" src="/web_csk/SmartFashion/video_frm/<?=substr($_FILES['userfile']['name'],0,-4)?>006.png">
   </body>
 </html>

@@ -14,6 +14,10 @@
     <?php
       error_reporting(E_ALL);
       ini_set('display_errors', '1');
+
+      // $_FIESE 로 받아온것에 대한 변수 선언
+      $vido_name = $_FILES['userfile']['name'];
+
       // 세션 시작
       session_start();
       $_SESSION['file_info'] = $_FILES;
@@ -43,11 +47,10 @@
            //동영상 파일 이름
          Print_r($_FILES['userfile']['name']);
 
-
          //서버에 저장된 동영상에 대한 정보 전체 출력 명령어
-         $command_string_video_info = "ffmpeg -i /var/www/html/web_csk/SmartFashion/video_file/".$_FILES['userfile']['name']." 2>&1";
+         $command_string_video_info = "ffmpeg -i /var/www/html/web_csk/SmartFashion/video_file/".$vido_name." 2>&1";
           //동영상 총 시간 grep 을 통해 문자열 추출 명령어
-         $command_string_video_t = "ffmpeg -i /var/www/html/web_csk/SmartFashion/video_file/".$_FILES['userfile']['name']." 2>&1 | grep Duration | cut -d '' -f 4 | sed s/,//";
+         $command_string_video_t = "ffmpeg -i /var/www/html/web_csk/SmartFashion/video_file/".$vido_name." 2>&1 | grep Duration | cut -d '' -f 4 | sed s/,//";
 
          //총 프래임 수 나타내는 명령어
          $command_string_video_fps_total = "ffprobe -v error -select_streams v:0 -show_entries stream=nb_frames -of default=nokey=1:noprint_wrappers=1  /var/www/html/web_csk/SmartFashion/video_file/".$_FILES['userfile']['name']." 2>&1";
@@ -76,7 +79,7 @@
            print_r($output_t);
            echo "성공";
          }
-
+         // 이 동영상의 전체 프레임수를 알수있다
          exec($command_string_video_fps_total, $output_fps_total, $status);
          if($status) {
            echo $status;
@@ -88,13 +91,13 @@
            echo "성공";
          }
 
-         // fsp, 문자열 부터 자르는 코드
+         // fps, 문자열 부터 자르는 코드 () //이 동영상의 프레임 속도
         $output_fps = explode('fps,',$output_info[19]);
         echo $output_fps[1];
     ?>
     <form class="" action="video_divde.php" method="post">
 
-      <video width="500" heigh="250" src="/web_csk/SmartFashion/video_file/<?= $_FILES['userfile']['name']?>" controls></video>
+      <video width="500" heigh="250" src="/web_csk/SmartFashion/video_file/<?= $vido_name?>" controls></video>
       <br>
         <p>video info</p>
         <p>동영상시간:<?=print_r (substr($output_t[0],15,8))?></p>
